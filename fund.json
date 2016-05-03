@@ -1,0 +1,368 @@
+[
+  {
+    "fund": "Fidelity OTC Portfolio",
+    "id": 1,
+    "total_amount": 1.2,
+    "group": 3
+  },
+  {
+    "fund": "Centaur Total Return Fund",
+    "id": 2,
+    "total_amount": 0.6,
+    "group": 1
+  },
+  {
+    "fund": "T Rowe Price Media & Telecommunications Fund",
+    "id": 3,
+    "total_amount": 1.09,
+    "group": 4
+  },
+  {
+    "fund": "T Rowe Price Health Sciences Fund",
+    "id": 4,
+    "total_amount": 0.95,
+    "group": 4
+  },
+  {
+    "fund": "AMG SouthernSun Small Cap Fund;Investor",
+    "id": 5,
+    "total_amount": 1.26,
+    "group": 4
+  },
+  {
+    "fund": "Saratoga Technology & Communications Portfolio",
+    "id": 6,
+    "total_amount": 1.04,
+    "group": 3
+  },
+  {
+    "fund": "Reynolds Blue Chip Growth Fund",
+    "id": 7,
+    "total_amount": 0.95,
+    "group": 4
+  },
+  {
+    "fund": "Pin Oak Equity Fund",
+    "id": 8,
+    "total_amount": 1.11,
+    "group": 3
+  },
+  {
+    "fund": "Victory Munder Multi-Cap Fund",
+    "id": 9,
+    "total_amount": 1.03,
+    "group": 4
+  },
+  {
+    "fund": "Janus Triton Fund;D",
+    "id": 10,
+    "total_amount": 1.03,
+    "group": 3
+  },
+  {
+    "fund": "ICON Energy Fund;S",
+    "id": 11,
+    "total_amount": 1.09,
+    "group": 2
+  },
+  {
+    "fund": "Integrity Williston Basin/Mid-North America Stock Fund;A",
+    "id": 12,
+    "total_amount": 1.2,
+    "group": 5
+  },
+  {
+    "fund": "Voya Large-Cap Growth Portfolio Service",
+    "id": 13,
+    "total_amount": 0,
+    "group": 3
+  },
+  {
+    "fund": "ICON Energy Fund;S",
+    "id": 14,
+    "total_amount": 1.09,
+    "group": 2
+  },
+  {
+    "fund": "Hancock Horizon Burkenroad Small Cap Fund;A",
+    "id": 15,
+    "total_amount": 0.97,
+    "group": 3
+  },
+  {
+    "fund": "Fidelity Small Cap Discovery Fund",
+    "id": 16,
+    "total_amount": 1,
+    "group": 3
+  },
+  {
+    "fund": "Fidelity Select Retailing Portfolio",
+    "id": 17,
+    "total_amount": 1.03,
+    "group": 5
+  },
+  {
+    "fund": "Fidelity Select Consumer Staples Portfolio",
+    "id": 18,
+    "total_amount": 0.83,
+    "group": 5
+  },
+  {
+    "fund": "Berkshire Focus Fund",
+    "id": 19,
+    "total_amount": 1.19,
+    "group": 3
+  },
+  {
+    "fund": "Alger Spectra Fund;A",
+    "id": 20,
+    "total_amount": 1.01,
+    "group": 4
+  },
+  {
+    "fund": "T Rowe Price Health Sciences Fund",
+    "id": 21,
+    "total_amount": 0.95,
+    "group": 3
+  },
+  {
+    "fund": "Intrepid Small Cap",
+    "id": 22,
+    "total_amount": 0.29,
+    "group": 3
+  },
+  {
+    "fund": "Yacktman",
+    "id": 23,
+    "total_amount": 1.2,
+    "group": 3
+  },
+  {
+    "fund": "Reynolds Blue Chip Growth",
+    "id": 24,
+    "total_amount": 0.95,
+    "group": 3
+  },
+  {
+    "fund": "Transamerica Small/Mid Cap Value;A",
+    "id": 25,
+    "total_amount": 1.08,
+    "group": 4
+  },
+  {
+    "fund": "Aberdeen China Opportunities Fund;A",
+    "id": 26,
+    "total_amount": 0.89,
+    "group": 5
+  },
+  {
+    "fund": "Aberdeen Emerging Markets Fund;A",
+    "id": 27,
+    "total_amount": 1.03,
+    "group": 5
+  },
+  {
+    "fund": "Alger Global Growth Fund;A",
+    "id": 28,
+    "total_amount": 0.96,
+    "group": 5
+  },
+  {
+    "fund": "Calamos International Growth Fund;A",
+    "id": 29,
+    "total_amount": 0.99,
+    "group": 5
+  },
+  {
+    "fund": "Fidelity Advisor Emerging Asia Fund;A",
+    "id": 30,
+    "total_amount": 0.99,
+    "group": 4
+  },
+  {
+    "fund": "Fidelity Canada Fund",
+    "id": 31,
+    "total_amount": 0.93,
+    "group": 4
+  },
+  {
+    "fund": "First Eagle Overseas Fund",
+    "id": 32,
+    "total_amount": 0.59,
+    "group": 2
+  },
+  {
+    "fund": "Henderson European Focus Fund;A",
+    "id": 33,
+    "total_amount": 1.04,
+    "group": 4
+  },
+  {
+    "fund": "Matthews Asia Growth Fund;Investor",
+    "id": 34,
+    "total_amount": 0.91,
+    "group": 4
+  },
+  {
+    "fund": "Matthews China Fund;Investor",
+    "id": 35,
+    "total_amount": 1.14,
+    "group": 5
+  },
+  {
+    "fund": "Oakmark Global Select Fund",
+    "id": 36,
+    "total_amount": 1.18,
+    "group": 2
+  },
+  {
+    "fund": "Old Westbury Small & Mid Cap Fund",
+    "id": 37,
+    "total_amount": 0.91,
+    "group": 2
+  },
+  {
+    "fund": "Oppenheimer Developing Markets Fund",
+    "id": 38,
+    "total_amount": 1.18,
+    "group": 5
+  },
+  {
+    "fund": "Oppenheimer International Small-Mid Company Fund;A",
+    "id": 39,
+    "total_amount": 0.76,
+    "group": 4
+  },
+  {
+    "fund": "Saturna Sextant International Fund",
+    "id": 40,
+    "total_amount": 0.93,
+    "group": 2
+  },
+  {
+    "fund": "T Rowe Price New Asia Fund",
+    "id": 41,
+    "total_amount": 0.95,
+    "group": 2
+  },
+  {
+    "fund": "Thornburg Global Opportunities Fund;A",
+    "id": 42,
+    "total_amount": 0.87,
+    "group": 2
+  },
+  {
+    "fund": "Virtus Global Infrastructure Fund;A",
+    "id": 43,
+    "total_amount": 0.64,
+    "group": 2
+  },
+  {
+    "fund": "Wasatch World Innovators Fund;InvestorA",
+    "id": 44,
+    "total_amount": 0.95,
+    "group": 3
+  },
+  {
+    "fund": "Wells Fargo Emerging Markets Equity Fund;A",
+    "id": 45,
+    "total_amount": 1.06,
+    "group": 4
+  },
+  {
+    "fund": "Westcore International Small-Cap Fund;Retail",
+    "id": 46,
+    "total_amount": 0.95,
+    "group": 4
+  },
+  {
+    "fund": "AB High Income Fund",
+    "id": 47,
+    "total_amount": 0.37,
+    "group": 2
+  },
+  {
+    "fund": "CM Advisors Fixed Income Fund",
+    "id": 48,
+    "total_amount": 0.06,
+    "group": 2
+  },
+  {
+    "fund": "Delaware Corporate Bond Fund;A",
+    "id": 49,
+    "total_amount": 0.15,
+    "group": 2
+  },
+  {
+    "fund": "Dreyfus International Bond Fund;A",
+    "id": 50,
+    "total_amount": 0.15,
+    "group": 2
+  },
+  {
+    "fund": "Fidelity Capital & Income Fund",
+    "id": 51,
+    "total_amount": 0.48,
+    "group": 2
+  },
+  {
+    "fund": "VY Pioneer High Yield Portfolio Service",
+    "id": 52,
+    "total_amount": 0.48,
+    "group": 2
+  },
+  {
+    "fund": "Janus Flexible Bond Fund;D",
+    "id": 53,
+    "total_amount": 0.03,
+    "group": 2
+  },
+  {
+    "fund": "Natixis Loomis Sayles Core Plus Bond Fund;A",
+    "id": 54,
+    "total_amount": 0.22,
+    "group": 2
+  },
+  {
+    "fund": "Lord Abbett Income Fund;A",
+    "id": 55,
+    "total_amount": 0.22,
+    "group": 2
+  },
+  {
+    "fund": "Metropolitan West Total Return Bond Fund;M",
+    "id": 56,
+    "total_amount": 0.01,
+    "group": 2
+  },
+  {
+    "fund": "PIMCO Foreign Bond Fund (Unhedged);D",
+    "id": 57,
+    "total_amount": 0.24,
+    "group": 2
+  },
+  {
+    "fund": "PIMCO Investment Grade Corporate Bond Fund;A",
+    "id": 58,
+    "total_amount": 0.15,
+    "group": 2
+  },
+  {
+    "fund": "Putnam US Government Income Trust;A",
+    "id": 59,
+    "total_amount": 0.15,
+    "group": 1
+  },
+  {
+    "fund": "Waddell & Reed Asset Strategy Fund",
+    "id": 60,
+    "total_amount": 0.82,
+    "group": 4
+  },
+  {
+    "fund": "Waddell & Reed Asset Strategy Fund",
+    "id": 61,
+    "total_amount": 0.82,
+    "group": 4
+  }
+]
