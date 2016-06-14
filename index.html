@@ -61,45 +61,44 @@ const bubbleChart = () => {
   }
 
   let chart = (selector, rawData) => {
-    var maxAmount = d3.max(rawData, function (d) { return +d.total_amount})
+    let maxAmount = d3.max(rawData, (d) => +d.total_amount)
     radiusScale.domain([0, maxAmount])
 
-    nodes = createNodes(rawData);
-    force.nodes(nodes);
+    nodes = createNodes(rawData)
+    force.nodes(nodes)
 
     svg = d3.select(selector)
       .append('svg')
       .attr('width', width)
-      .attr('height', height);
+      .attr('height', height)
 
     bubbles = svg.selectAll('.bubble')
-      .data(nodes, function (d) { return d.id; });
+      .data(nodes, (d) => { return d.id })
 
     bubbles.enter().append('circle')
       .classed('bubble', true)
       .attr('r', 0)
-      .attr('fill', function (d) { return fillColor(d.group); })
-      .attr('stroke', function (d) { return d3.rgb(fillColor(d.group)).darker(); })
+      .attr('fill', function (d) { return fillColor(d.group) })
+      .attr('stroke', function (d) { return d3.rgb(fillColor(d.group)).darker() })
       .attr('stroke-width', 2)
       .on('mouseover', showDetail)
-      .on('mouseout', hideDetail);
+      .on('mouseout', hideDetail)
 
     bubbles.transition()
       .duration(3000)
-      .attr('r', function (d) { return d.radius; });
-    groupBubbles();
-  };
+      .attr('r', function (d) { return d.radius; })
+    groupBubbles()
+  }
 
-  function groupBubbles() {
-    hideYears();
+  const groupBubbles = () => {
+    hideYears()
 
     force.on('tick', function (e) {
       bubbles.each(moveToCenter(e.alpha))
         .attr('cx', function (d) { return d.x; })
-        .attr('cy', function (d) { return d.y; });
-    });
-
-    force.start();
+        .attr('cy', function (d) { return d.y; })
+    })
+    force.start()
   }
 
   function moveToCenter(alpha) {
