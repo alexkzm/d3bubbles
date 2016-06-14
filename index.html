@@ -9,23 +9,17 @@
     <body>
     <div class="container"><div id="vis"></div></div>
 <script type="text/javascript">
-
 const bubbleChart = () => {
   let width = 940
   let height = 600
-
-  let tooltip = floatingTooltip('fund_tooltip', 240);
-
-  let center = { x: width / 2, y: height / 2 };
-
+  let tooltip = floatingTooltip('fund_tooltip', 240)
+  let center = { x: width / 2, y: height / 2 }
   let yearCenters = {
     2008: { x: width / 3, y: height / 2 },
     2009: { x: width / 2, y: height / 2 },
     2010: { x: 2 * width / 3, y: height / 2 }
   }
-
   let damper = 0.102
-
   let svg = null
   let bubbles = null
   let nodes = []
@@ -39,17 +33,15 @@ const bubbleChart = () => {
     .charge(charge)
     .gravity(-0.01)
     .friction(0.9)
-
   let fillColor = d3.scale.ordinal()
     .domain(['1', '2', '3', '4', '5'])
-    .range(['green', 'blue', 'yellow', '#F9AD0A', 'red']);
-
-  var radiusScale = d3.scale.pow()
+    .range(['green', 'blue', 'yellow', '#F9AD0A', 'red'])
+  let radiusScale = d3.scale.pow()
     .exponent(0.5)
     .range([2, 42]);
 
-  function createNodes(rawData) {
-    var myNodes = rawData.map(function (d) {
+  const createNodes = (rawData) => {
+    let myNodes = rawData.map((d) => {
       return {
         id: d.id,
         radius: radiusScale(+d.total_amount),
@@ -60,17 +52,17 @@ const bubbleChart = () => {
         year: d.start_year,
         x: Math.random() * 900,
         y: Math.random() * 800
-      };
-    });
+      }
+    })
 
-    myNodes.sort(function (a, b) { return b.value - a.value; });
+    myNodes.sort((a, b) => {return b.value - a.value})
 
-    return myNodes;
+    return myNodes
   }
 
-  var chart = function chart(selector, rawData) {
-    var maxAmount = d3.max(rawData, function (d) { return +d.total_amount; });
-    radiusScale.domain([0, maxAmount]);
+  let chart = (selector, rawData) => {
+    var maxAmount = d3.max(rawData, function (d) { return +d.total_amount})
+    radiusScale.domain([0, maxAmount])
 
     nodes = createNodes(rawData);
     force.nodes(nodes);
