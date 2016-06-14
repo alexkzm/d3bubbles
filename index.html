@@ -92,7 +92,6 @@ const bubbleChart = () => {
 
   const groupBubbles = () => {
     hideYears()
-
     force.on('tick', function (e) {
       bubbles.each(moveToCenter(e.alpha))
         .attr('cx', function (d) { return d.x; })
@@ -101,104 +100,100 @@ const bubbleChart = () => {
     force.start()
   }
 
-  function moveToCenter(alpha) {
+  const moveToCenter = (alpha) => {
     return function (d) {
-      d.x = d.x + (center.x - d.x) * damper * alpha;
-      d.y = d.y + (center.y - d.y) * damper * alpha;
-    };
+      d.x = d.x + (center.x - d.x) * damper * alpha
+      d.y = d.y + (center.y - d.y) * damper * alpha
+    }
   }
 
-  function splitBubbles() {
-    showYears();
+  const splitBubbles = () => {
+    showYears()
 
     force.on('tick', function (e) {
       bubbles.each(moveToYears(e.alpha))
         .attr('cx', function (d) { return d.x; })
-        .attr('cy', function (d) { return d.y; });
-    });
-
-    force.start();
+        .attr('cy', function (d) { return d.y; })
+    })
+    force.start()
   }
 
-  function hideYears() {
-    svg.selectAll('.year').remove();
+  const hideYears = () => {
+    svg.selectAll('.year').remove()
   }
 
-  function showDetail(d) {
-    d3.select(this).attr('stroke', 'black');
+  const showDetail = (d) => {
+    d3.select(this).attr('stroke', 'black')
 
-    var content = '<span class="name">Fund: </span><span class="value">' +
+    let content = '<span class="name">Fund: </span><span class="value">' +
                   d.name +
                   '</span><br/>' +
                   '<span class="name">Beta: </span><span class="value">' +
                   addCommas(d.value) +
-                  '</span>';
-
-
-    tooltip.showTooltip(content, d3.event);
+                  '</span>'
+    tooltip.showTooltip(content, d3.event)
   }
 
-  function hideDetail(d) {
+  const hideDetail = (d) => {
     d3.select(this)
-      .attr('stroke', d3.rgb(fillColor(d.group)).darker());
-
-    tooltip.hideTooltip();
+      .attr('stroke', d3.rgb(fillColor(d.group)).darker())
+    tooltip.hideTooltip()
   }
 
   chart.toggleDisplay = function (displayName) {
     if (displayName === 'year') {
-      splitBubbles();
+      splitBubbles()
     } else {
-      groupBubbles();
+      groupBubbles()
     }
-  };
+  }
 
-  return chart;
+  return chart
 }
 
-var myBubbleChart = bubbleChart();
+let myBubbleChart = bubbleChart()
 
 function display(error, data) {
   if (error) {
-    console.log(error);
+    console.log(error)
   }
 
-  myBubbleChart('#vis', data);
+  myBubbleChart('#vis', data)
 }
 
 function addCommas(nStr) {
-  nStr += '';
-  var x = nStr.split('.');
-  var x1 = x[0];
-  var x2 = x.length > 1 ? '.' + x[1] : '';
-  var rgx = /(\d+)(\d{3})/;
+  nStr += ''
+  let x = nStr.split('.')
+  let x1 = x[0]
+  let x2 = x.length > 1 ? '.' + x[1] : ''
+  let rgx = /(\d+)(\d{3})/
   while (rgx.test(x1)) {
-    x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    x1 = x1.replace(rgx, '$1' + ',' + '$2')
   }
-  return x1 + x2;
+  return x1 + x2
 }
 
-d3.json('fund.json', display);
+d3.json('fund.json', display)
 
 function floatingTooltip(tooltipId, width) {
   var tt = d3.select('body')
     .append('div')
     .attr('class', 'tooltip')
     .attr('id', tooltipId)
-    .style('pointer-events', 'none');
+    .style('pointer-events', 'none')
 
 
   if (width) {
-    tt.style('width', width);
+    tt.style('width', width)
   }
 
-  hideTooltip();
+  hideTooltip()
 
   function showTooltip(content, event) {
     tt.style('opacity', 1.0)
       .html(content);
 
-    updatePosition(event);
+    updatePosition(event)
   }
 
   function hideTooltip() {
