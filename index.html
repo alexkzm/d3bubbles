@@ -10,84 +10,45 @@
     <div class="container"><div id="vis"></div></div>
 <script type="text/javascript">
 
-function bubbleChart() {
-  // Constants for sizing
-  var width = 940;
-  var height = 600;
+const bubbleChart = () => {
+  let width = 940
+  let height = 600
 
-  // tooltip for mouseover functionality
-  var tooltip = floatingTooltip('fund_tooltip', 240);
+  let tooltip = floatingTooltip('fund_tooltip', 240);
 
-  // Locations to move bubbles towards, depending
-  // on which view mode is selected.
-  var center = { x: width / 2, y: height / 2 };
+  let center = { x: width / 2, y: height / 2 };
 
-  var yearCenters = {
+  let yearCenters = {
     2008: { x: width / 3, y: height / 2 },
     2009: { x: width / 2, y: height / 2 },
     2010: { x: 2 * width / 3, y: height / 2 }
-  };
-
-  // Used when setting up force and
-  // moving around nodes
-  var damper = 0.102;
-
-  // These will be set in create_nodes and create_vis
-  var svg = null;
-  var bubbles = null;
-  var nodes = [];
-
-  // Charge function that is called for each node.
-  // Charge is proportional to the diameter of the
-  // circle (which is stored in the radius attribute
-  // of the circle's associated data.
-  // This is done to allow for accurate collision
-  // detection with nodes of different sizes.
-  // Charge is negative because we want nodes to repel.
-  // Dividing by 8 scales down the charge to be
-  // appropriate for the visualization dimensions.
-  function charge(d) {
-    return -Math.pow(d.radius, 1.8) / 4;
   }
 
-  // Here we create a force layout and
-  // configure it to use the charge function
-  // from above. This also sets some contants
-  // to specify how the force layout should behave.
-  // More configuration is done below.
-  var force = d3.layout.force()
+  let damper = 0.102
+
+  let svg = null
+  let bubbles = null
+  let nodes = []
+
+  function charge(d) {
+    return -Math.pow(d.radius, 1.8) / 4
+  }
+
+  let force = d3.layout.force()
     .size([width, height])
     .charge(charge)
     .gravity(-0.01)
-    .friction(0.9);
+    .friction(0.9)
 
-
-  // Nice looking colors - no reason to buck the trend
-  var fillColor = d3.scale.ordinal()
+  let fillColor = d3.scale.ordinal()
     .domain(['1', '2', '3', '4', '5'])
     .range(['green', 'blue', 'yellow', '#F9AD0A', 'red']);
 
-  // Sizes bubbles based on their area instead of raw radius
   var radiusScale = d3.scale.pow()
     .exponent(0.5)
     .range([2, 42]);
 
-  /*
-   * This data manipulation function takes the raw data from
-   * the JSON file and converts it into an array of node objects.
-   * Each node will store data and visualization values to visualize
-   * a bubble.
-   *
-   * rawData is expected to be an array of data objects, read in from
-   * one of d3's loading functions like d3.json.
-   *
-   * This function returns the new node array, with a node in that
-   * array for each element in the rawData input.
-   */
   function createNodes(rawData) {
-    // Use map() to convert raw data into node data.
-    // Checkout http://learnjsdata.com/ for more on
-    // working with data.
     var myNodes = rawData.map(function (d) {
       return {
         id: d.id,
@@ -102,50 +63,26 @@ function bubbleChart() {
       };
     });
 
-    // sort them to prevent occlusion of smaller nodes.
     myNodes.sort(function (a, b) { return b.value - a.value; });
 
     return myNodes;
   }
 
-  /*
-   * Main entry point to the bubble chart. This function is returned
-   * by the parent closure. It prepares the rawData for visualization
-   * and adds an svg element to the provided selector and starts the
-   * visualization creation process.
-   *
-   * selector is expected to be a DOM element or CSS selector that
-   * points to the parent element of the bubble chart. Inside this
-   * element, the code will add the SVG continer for the visualization.
-   *
-   * rawData is expected to be an array of data objects as provided by
-   * a d3 loading function like d3.json.
-   */
   var chart = function chart(selector, rawData) {
-    // Use the max total_amount in the data as the max in the scale's domain
-    // note we have to ensure the total_amount is a number by converting it
-    // with `+`.
     var maxAmount = d3.max(rawData, function (d) { return +d.total_amount; });
     radiusScale.domain([0, maxAmount]);
 
     nodes = createNodes(rawData);
-    // Set the force's nodes to our newly created nodes array.
     force.nodes(nodes);
 
-    // Create a SVG element inside the provided selector
-    // with desired size.
     svg = d3.select(selector)
       .append('svg')
       .attr('width', width)
       .attr('height', height);
 
-    // Bind nodes data to what will become DOM elements to represent them.
     bubbles = svg.selectAll('.bubble')
       .data(nodes, function (d) { return d.id; });
 
-    // Create new circle elements each with class `bubble`.
-    // There will be one circle.bubble for each object in the nodes array.
-    // Initially, their radius (r attribute) will be 0.
     bubbles.enter().append('circle')
       .classed('bubble', true)
       .attr('r', 0)
@@ -155,22 +92,12 @@ function bubbleChart() {
       .on('mouseover', showDetail)
       .on('mouseout', hideDetail);
 
-    // Fancy transition to make bubbles appear, ending with the
-    // correct radius
     bubbles.transition()
       .duration(3000)
       .attr('r', function (d) { return d.radius; });
-
-    // Set initial layout to single group.
     groupBubbles();
   };
 
-  /*
-   * Sets visualization in "single group mode".
-   * The year labels are hidden and the force layout
-   * tick function is set to move all nodes to the
-   * center of the visualization.
-   */
   function groupBubbles() {
     hideYears();
 
@@ -183,20 +110,6 @@ function bubbleChart() {
     force.start();
   }
 
-  /*
-   * Helper function for "single group mode".
-   * Returns a function that takes the data for a
-   * single node and adjusts the position values
-   * of that node to move it toward the center of
-   * the visualization.
-   *
-   * Positioning is adjusted by the force layout's
-   * alpha parameter which gets smaller and smaller as
-   * the force layout runs. This makes the impact of
-   * this moving get reduced as each node gets closer to
-   * its destination, and so allows other forces like the
-   * node's charge force to also impact final location.
-   */
   function moveToCenter(alpha) {
     return function (d) {
       d.x = d.x + (center.x - d.x) * damper * alpha;
@@ -204,12 +117,6 @@ function bubbleChart() {
     };
   }
 
-  /*
-   * Sets visualization in "split by year mode".
-   * The year labels are shown and the force layout
-   * tick function is set to move nodes to the
-   * yearCenter of their data's year.
-   */
   function splitBubbles() {
     showYears();
 
@@ -222,19 +129,11 @@ function bubbleChart() {
     force.start();
   }
 
-  /*
-   * Hides Year title displays.
-   */
   function hideYears() {
     svg.selectAll('.year').remove();
   }
 
-  /*
-   * Function called on mouseover to display the
-   * details of a bubble in the tooltip.
-   */
   function showDetail(d) {
-    // change outline to indicate hover state.
     d3.select(this).attr('stroke', 'black');
 
     var content = '<span class="name">Fund: </span><span class="value">' +
@@ -248,24 +147,13 @@ function bubbleChart() {
     tooltip.showTooltip(content, d3.event);
   }
 
-  /*
-   * Hides tooltip
-   */
   function hideDetail(d) {
-    // reset outline
     d3.select(this)
       .attr('stroke', d3.rgb(fillColor(d.group)).darker());
 
     tooltip.hideTooltip();
   }
 
-  /*
-   * Externally accessible function (this is attached to the
-   * returned chart function). Allows the visualization to toggle
-   * between "single group" and "split by year" modes.
-   *
-   * displayName is expected to be a string and either 'year' or 'all'.
-   */
   chart.toggleDisplay = function (displayName) {
     if (displayName === 'year') {
       splitBubbles();
@@ -274,22 +162,11 @@ function bubbleChart() {
     }
   };
 
-
-  // return the chart function from closure.
   return chart;
 }
 
-/*
- * Below is the initialization code as well as some helper functions
- * to create a new bubble chart instance, load the data, and display it.
- */
-
 var myBubbleChart = bubbleChart();
 
-/*
- * Function called once data is loaded from JSON.
- * Calls bubble chart function to display inside #vis div.
- */
 function display(error, data) {
   if (error) {
     console.log(error);
@@ -298,10 +175,6 @@ function display(error, data) {
   myBubbleChart('#vis', data);
 }
 
-/*
- * Helper function to convert a number into a string
- * and add commas to it to improve presentation.
- */
 function addCommas(nStr) {
   nStr += '';
   var x = nStr.split('.');
@@ -311,46 +184,25 @@ function addCommas(nStr) {
   while (rgx.test(x1)) {
     x1 = x1.replace(rgx, '$1' + ',' + '$2');
   }
-
   return x1 + x2;
 }
 
-// Load the data.
 d3.json('fund.json', display);
 
-// setup the buttons.
-
-
-/*
- * Creates tooltip with provided id that
- * floats on top of visualization.
- * Most styling is expected to come from CSS
- * so check out bubble_chart.css for more details.
- */
 function floatingTooltip(tooltipId, width) {
-  // Local variable to hold tooltip div for
-  // manipulation in other functions.
   var tt = d3.select('body')
     .append('div')
     .attr('class', 'tooltip')
     .attr('id', tooltipId)
     .style('pointer-events', 'none');
 
-  // Set a width if it is provided.
+
   if (width) {
     tt.style('width', width);
   }
 
-  // Initially it is hidden.
   hideTooltip();
 
-  /*
-   * Display tooltip with provided content.
-   *
-   * content is expected to be HTML string.
-   *
-   * event is d3.event for positioning.
-   */
   function showTooltip(content, event) {
     tt.style('opacity', 1.0)
       .html(content);
@@ -358,17 +210,10 @@ function floatingTooltip(tooltipId, width) {
     updatePosition(event);
   }
 
-  /*
-   * Hide the tooltip div.
-   */
   function hideTooltip() {
     tt.style('opacity', 0.0);
   }
 
-  /*
-   * Figure out where to place the tooltip
-   * based on d3 mouse event.
-   */
   function updatePosition(event) {
     var xOffset = 20;
     var yOffset = 10;
