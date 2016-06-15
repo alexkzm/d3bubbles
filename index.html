@@ -38,7 +38,7 @@ const bubbleChart = () => {
     .range(['green', 'blue', 'yellow', '#F9AD0A', 'red'])
   let radiusScale = d3.scale.pow()
     .exponent(0.5)
-    .range([2, 42]);
+    .range([2, 42])
 
   const createNodes = (rawData) => {
     let myNodes = rawData.map((d) => {
@@ -77,30 +77,30 @@ const bubbleChart = () => {
     bubbles.enter().append('circle')
       .classed('bubble', true)
       .attr('r', 0)
-      .attr('fill', function (d) { return fillColor(d.group) })
-      .attr('stroke', function (d) { return d3.rgb(fillColor(d.group)).darker() })
+      .attr('fill', (d) => { return fillColor(d.group) })
+      .attr('stroke', (d) => { return d3.rgb(fillColor(d.group)).darker() })
       .attr('stroke-width', 2)
       .on('mouseover', showDetail)
       .on('mouseout', hideDetail)
 
     bubbles.transition()
       .duration(3000)
-      .attr('r', function (d) { return d.radius; })
+      .attr('r', (d) => { return d.radius })
     groupBubbles()
   }
 
   const groupBubbles = () => {
     hideYears()
-    force.on('tick', function (e) {
+    force.on('tick', (e) => {
       bubbles.each(moveToCenter(e.alpha))
-        .attr('cx', function (d) { return d.x; })
-        .attr('cy', function (d) { return d.y; })
+        .attr('cx', (d) => { return d.x })
+        .attr('cy', (d) => { return d.y })
     })
     force.start()
   }
 
   const moveToCenter = (alpha) => {
-    return function (d) {
+    return (d) => {
       d.x = d.x + (center.x - d.x) * damper * alpha
       d.y = d.y + (center.y - d.y) * damper * alpha
     }
@@ -108,11 +108,10 @@ const bubbleChart = () => {
 
   const splitBubbles = () => {
     showYears()
-
-    force.on('tick', function (e) {
+    force.on('tick', (e) => {
       bubbles.each(moveToYears(e.alpha))
-        .attr('cx', function (d) { return d.x; })
-        .attr('cy', function (d) { return d.y; })
+        .attr('cx', (d) => { return d.x })
+        .attr('cy', (d) => { return d.y })
     })
     force.start()
   }
@@ -139,7 +138,7 @@ const bubbleChart = () => {
     tooltip.hideTooltip()
   }
 
-  chart.toggleDisplay = function (displayName) {
+  chart.toggleDisplay = (displayName) => {
     if (displayName === 'year') {
       splitBubbles()
     } else {
@@ -152,23 +151,21 @@ const bubbleChart = () => {
 
 let myBubbleChart = bubbleChart()
 
-function display(error, data) {
+const display = (error, data) => {
   if (error) {
     console.log(error)
   }
-
   myBubbleChart('#vis', data)
 }
 
 d3.json('fund.json', display)
 
-function floatingTooltip(tooltipId, width) {
-  var tt = d3.select('body')
+function floatingTooltip(tooltipId, width){
+  let tt = d3.select('body')
     .append('div')
     .attr('class', 'tooltip')
     .attr('id', tooltipId)
     .style('pointer-events', 'none')
-
 
   if (width) {
     tt.style('width', width)
@@ -178,49 +175,49 @@ function floatingTooltip(tooltipId, width) {
 
   function showTooltip(content, event) {
     tt.style('opacity', 1.0)
-      .html(content);
+      .html(content)
 
     updatePosition(event)
   }
 
-  function hideTooltip() {
-    tt.style('opacity', 0.0);
+  function hideTooltip(){
+    tt.style('opacity', 0.0)
   }
 
   function updatePosition(event) {
-    var xOffset = 20;
-    var yOffset = 10;
+    let xOffset = 20
+    let yOffset = 10
 
-    var ttw = tt.style('width');
-    var tth = tt.style('height');
+    let ttw = tt.style('width')
+    let tth = tt.style('height')
 
-    var wscrY = window.scrollY;
-    var wscrX = window.scrollX;
+    let wscrY = window.scrollY
+    let wscrX = window.scrollX
 
-    var curX = (document.all) ? event.clientX + wscrX : event.pageX;
-    var curY = (document.all) ? event.clientY + wscrY : event.pageY;
-    var ttleft = ((curX - wscrX + xOffset * 2 + ttw) > window.innerWidth) ?
-                 curX - ttw - xOffset * 2 : curX + xOffset;
+    let curX = (document.all) ? event.clientX + wscrX : event.pageX
+    let curY = (document.all) ? event.clientY + wscrY : event.pageY
+    let ttleft = ((curX - wscrX + xOffset * 2 + ttw) > window.innerWidth) ?
+                 curX - ttw - xOffset * 2 : curX + xOffset
 
     if (ttleft < wscrX + xOffset) {
-      ttleft = wscrX + xOffset;
+      ttleft = wscrX + xOffset
     }
 
-    var tttop = ((curY - wscrY + yOffset * 2 + tth) > window.innerHeight) ?
-                curY - tth - yOffset * 2 : curY + yOffset;
+    let tttop = ((curY - wscrY + yOffset * 2 + tth) > window.innerHeight) ?
+                curY - tth - yOffset * 2 : curY + yOffset
 
     if (tttop < wscrY + yOffset) {
-      tttop = curY + yOffset;
+      tttop = curY + yOffset
     }
 
-    tt.style({ top: tttop + 'px', left: ttleft + 'px' });
+    tt.style({ top: tttop + 'px', left: ttleft + 'px' })
   }
 
   return {
     showTooltip: showTooltip,
     hideTooltip: hideTooltip,
     updatePosition: updatePosition
-  };
+  }
 }</script>
     </body>
   </html>
