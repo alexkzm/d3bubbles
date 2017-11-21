@@ -4,3 +4,11 @@
 ### **Bl.ock:** [D3 Bubble Chart](https://bl.ocks.org/alexkzm/5a101c13fbff54b945bb9634552db9b4)
 
 ~~node~~
+
+```javascript
+const charge = (d) => {
+    return -Math.pow(d.radius, 1.8) / 4
+  }
+```
+
+~~node~~
